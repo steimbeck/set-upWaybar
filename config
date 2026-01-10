@@ -1,0 +1,105 @@
+
+{
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "spacing": 4,
+
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": ["custom/clipboard", "pulseaudio", "network", "cpu", "memory", "temperature", "bluetooth", "battery", "tray", "clock"],
+
+  "hyprland/workspaces": {
+    "format": "{name}: {icon}",
+       "format-icons": {
+      "active": "●",
+      "default": "○"
+    
+  },
+    "persistent-workspaces": {
+      "*": 5
+    }
+  },
+
+  "hyprland/window": {
+    "format": "{}",
+    "max-length": 50,
+    "separate-outputs": true,
+    "icon": true,
+    "icon-size": 16
+  },
+
+  "clock": {
+    "format": "󰥔 {:%H:%M}",
+    "format-alt": "󰃭 {:%A %d %B %Y}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+
+  "cpu": {
+    "format": "󰻠 {usage}%",
+    "tooltip": true,
+    "interval": 2
+  },
+
+  "memory": {
+    "format": "󰍛 {}%",
+    "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G"
+  },
+ "temperature": {
+	// "thermal-zone": 2,
+	// "hwmon-path": ["/sys/class/hwmon/hwmon2/temp1_input", "/sys/class/thermal/thermal_zone0/temp"],
+	// "critical-threshold": 80,
+	// "format-critical": "{temperatureC}°C ",
+	"format": "{temperatureC}°C "
+},
+"bluetooth": {
+	// "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
+	"format": " {status}",
+	"format-disabled": "", // an empty format will hide the module
+	"format-connected": " {num_connections} connected",
+	"tooltip-format": "{controller_alias}\\t{controller_address}",
+	"tooltip-format-connected": "{controller_alias}\\t{controller_address}\\n\\n{device_enumerate}",
+	"tooltip-format-enumerate-connected": "{device_alias}\\t{device_address}"
+},    
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰚥 {capacity}%",
+    "format-icons": ["󰂃", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+  },
+
+  "network": {
+    "format-wifi": "󰤨 {essid}",
+    "format-ethernet": "󰈀 ",
+    "format-disconnected": "󰤭 Disconnected",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    "tooltip-format-wifi": "󰤨 {essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": "󰈀 {ifname}",
+    "on-click": "neovim"
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 Muted",
+    "format-icons": {
+      "headphone": "󰋋",
+      "hands-free": "󰋎",
+      "headset": "󰋎",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "on-click": "pavucontrol",
+    "tooltip-format": "{icon} {volume}% - {desc}"
+  },
+
+  "tray": {
+    "icon-size": 18,
+    "spacing": 10
+  }
+}
