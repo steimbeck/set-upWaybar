@@ -1,21 +1,19 @@
-
 {
   "layer": "top",
   "position": "top",
-  "height": 28,
+  "height": 32,
   "spacing": 4,
-
-  "modules-left": ["hyprland/workspaces"],
+  
+ "modules-left": ["hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["custom/clipboard", "pulseaudio", "network", "cpu", "memory", "temperature", "bluetooth", "battery", "tray", "clock"],
-
+  "modules-right": ["custom/vpn", "pulseaudio", "network",  "cpu", "memory","temperature", "bluetooth","battery", "custom/power", "clock"],
+  
   "hyprland/workspaces": {
     "format": "{name}: {icon}",
        "format-icons": {
       "active": "●",
-      "default": "○"
-    
-  },
+      "default": "○"    },
+
     "persistent-workspaces": {
       "*": 5
     }
@@ -28,24 +26,22 @@
     "icon": true,
     "icon-size": 16
   },
-
+  
   "clock": {
     "format": "󰥔 {:%H:%M}",
-    "format-alt": "󰃭 {:%A %d %B %Y}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    "format-alt": "󰃭 {:%d/%m/%Y}",
+    "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
   },
-
+  
   "cpu": {
     "format": "󰻠 {usage}%",
-    "tooltip": true,
-    "interval": 2
+    "interval": 5
   },
-
+  
   "memory": {
-    "format": "󰍛 {}%",
-    "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G"
-  },
- "temperature": {
+    "format": "󰍛 {percentage}%",
+    "tooltip-format": "{used:0.1f}G / {total:0.1f}G"
+  },"temperature": {
 	// "thermal-zone": 2,
 	// "hwmon-path": ["/sys/class/hwmon/hwmon2/temp1_input", "/sys/class/thermal/thermal_zone0/temp"],
 	// "critical-threshold": 80,
@@ -60,7 +56,7 @@
 	"tooltip-format": "{controller_alias}\\t{controller_address}",
 	"tooltip-format-connected": "{controller_alias}\\t{controller_address}\\n\\n{device_enumerate}",
 	"tooltip-format-enumerate-connected": "{device_alias}\\t{device_address}"
-},    
+},
   "battery": {
     "states": {
       "warning": 30,
@@ -71,35 +67,36 @@
     "format-plugged": "󰚥 {capacity}%",
     "format-icons": ["󰂃", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
   },
-
+  
   "network": {
-    "format-wifi": "󰤨 {essid}",
-    "format-ethernet": "󰈀 ",
-    "format-disconnected": "󰤭 Disconnected",
-    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
-    "tooltip-format-wifi": "󰤨 {essid} ({signalStrength}%)",
-    "tooltip-format-ethernet": "󰈀 {ifname}",
-    "on-click": "neovim"
+    "format-wifi": "󰤨 {signalStrength}%",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰤭",
+    "tooltip-format-wifi": "{essid}\n{ipaddr}",
+    "tooltip-format-ethernet": "{ipaddr}",
+    "on-click": "nm-connection-editor"
   },
-
+  
   "pulseaudio": {
     "format": "{icon} {volume}%",
-    "format-muted": "󰖁 Muted",
+    "format-muted": "󰖁",
     "format-icons": {
-      "headphone": "󰋋",
-      "hands-free": "󰋎",
-      "headset": "󰋎",
-      "phone": "",
-      "portable": "",
-      "car": "",
       "default": ["󰕿", "󰖀", "󰕾"]
     },
-    "on-click": "pavucontrol",
-    "tooltip-format": "{icon} {volume}% - {desc}"
+    "on-click": "pavucontrol"
   },
-
-  "tray": {
-    "icon-size": 18,
-    "spacing": 10
+  
+  "custom/vpn": {
+    "format": "{icon}",
+    "exec": "~/.config/waybar/scripts/vpn.sh",
+    "return-type": "json",
+    "interval": 5,
+    "on-click": "~/.config/waybar/scripts/vpn-toggle.sh"
+  },
+  
+  "custom/power": {
+    "format": "⏻",
+    "on-click": "~/.config/waybar/scripts/power-menu.sh",
+    "tooltip": false
   }
 }
