@@ -1,14 +1,21 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 32,
+  "height": 28,
   "spacing": 4,
   
  "modules-left": ["hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["custom/vpn", "pulseaudio", "network",  "cpu", "memory","temperature", "bluetooth","battery", "custom/power", "clock"],
-  
-  "hyprland/workspaces": {
+  "modules-right": ["custom/vpn", "custom/wallpaper", "pulseaudio", "network",  "cpu", "memory","temperature", "bluetooth","battery", "custom/power", "custom/notification", "clock"],
+	 
+"custom/wallpaper": {
+  "format": "󰸉",
+  "on-click": "~/.config/hypr/scripts/wallpaper.sh menu",
+  "on-click-right": "~/.config/hypr/scripts/wallpaper.sh random",
+  "tooltip-format": "Gauche: Menu | Droit: Aléatoire"
+}, 
+
+"hyprland/workspaces": {
     "format": "{name}: {icon}",
        "format-icons": {
       "active": "●",
@@ -39,9 +46,12 @@
   },
   
   "memory": {
+
     "format": "󰍛 {percentage}%",
     "tooltip-format": "{used:0.1f}G / {total:0.1f}G"
-  },"temperature": {
+  },
+  
+  "temperature": {
 	// "thermal-zone": 2,
 	// "hwmon-path": ["/sys/class/hwmon/hwmon2/temp1_input", "/sys/class/thermal/thermal_zone0/temp"],
 	// "critical-threshold": 80,
@@ -49,15 +59,17 @@
 	"format": "{temperatureC}°C "
 },
 "bluetooth": {
-	// "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
 	"format": " {status}",
-	"format-disabled": "", // an empty format will hide the module
-	"format-connected": " {num_connections} connected",
-	"tooltip-format": "{controller_alias}\\t{controller_address}",
-	"tooltip-format-connected": "{controller_alias}\\t{controller_address}\\n\\n{device_enumerate}",
-	"tooltip-format-enumerate-connected": "{device_alias}\\t{device_address}"
-},
-  "battery": {
+	"format-connected": " {device_alias}",
+	"format-connected-battery": " {device_alias} {device_battery_percentage}%",
+	// "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+	"tooltip-format": "{controller_alias}\\t{controller_address}\\n\\n{num_connections} connected",
+	"tooltip-format-connected": "{controller_alias}\\t{controller_address}\\n\\n{num_connections} connected\\n\\n{device_enumerate}",
+	"tooltip-format-enumerate-connected": "{device_alias}\\t{device_address}",
+	"tooltip-format-enumerate-connected-battery": "{device_alias}\\t{device_address}\\t{device_battery_percentage}%"
+} ,
+
+"battery": {
     "states": {
       "warning": 30,
       "critical": 15
@@ -99,4 +111,20 @@
     "on-click": "~/.config/waybar/scripts/power-menu.sh",
     "tooltip": false
   }
+},
+"custom/notification": {
+  "tooltip": false,
+  "format": "{icon}",
+  "format-icons": {
+    "notification": "󰂚<span foreground='red'><sup></sup></span>",
+    "none": "󰂚",
+    "dnd-notification": "󰂛<span foreground='red'><sup></sup></span>",
+    "dnd-none": "󰂛"
+  },
+  "return-type": "json",
+  "exec": "swaync-client -swb",
+  "on-click": "swaync-client -t -sw",
+  "on-click-right": "swaync-client -d -sw",
+  "escape": true
 }
+
